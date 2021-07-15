@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>An Odd Bookstore</title>
+
+    <!-- Google Platform Libary, used for Google-Sign-in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="33190512866-s10gnlbb166ai0pslf7b6ccgd5rt7f74.apps.googleusercontent.com">
+
+    <!-- jQuery import -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- Javascript import -->
+    <script src="{{ url_for('static', filename='templates/myorders.js') }}"></script>
+
+    <!-- Bootstrap 4 import -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!-- CSS used for a few tweaks -->
+    <style>
+        .row-margin-03 { margin-top: 0.3em; }
+        .mt-05 { margin-top: 0.5em !important; }
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1><a href="{{ url_for('static', filename='index.html') }}">An Odd Bookstore</a></h1>
+            </div>
+            <div class="col-md-5 mt-3">
+                <div class="row">
+                    <div class="col" id="my_orders"></div>
+                    <div class="col"><div class="g-signin2" data-onsuccess="onSignIn"></div></div>
+                    <div class="col"><a href="#"><button class="btn btn-primary" onclick="signOut()">Sign Out</button></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="row sticky-top">
+            <div class="col-md-3" style="background-color: aqua;">
+                <h3>Any odd books you might want!</h3>
+            </div>
+            
+            <div class="col-md-7 " style="background-color: orange;">
+                <div class="row"><h4>Search for a book: </h4>
+                    <div class="col">
+                        <form class="search_form">
+                            <input type="text" id="search_box"></input>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <button id="search_btn" onclick="search();">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2" style="background-color: pink;">
+                <div class="row">
+                    <div id="cart-tracker" class="col"></div>
+                </div>
+                <div class="row">
+                    <div id="checkout-btn-box" class="col"> <!-- If logged in a button to checkout appears here. --></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" >
+                <h5>Genre: </h5>
+                <li>Comedy</li>
+                <li>Romance</li>
+                <li>Action</li>
+                <li>Adventure</li>
+                <li>Fantasy</li>
+                <li>Sci-fy</li>
+            </div>
+            <div class="col-md-9">
+                <div id="item_block" class="row">
+                   
+                    <!-- This is where items in the cart will be printed out. -->
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="background-color: lightgreen;">
+                Here is a col md 3 with aqua color
+            </div>
+            <div class="col-md-7" style="background-color: lightgoldenrodyellow;">
+                This one is 7
+            </div>
+            <div class="col-md-2" style="background-color: rgb(242, 192, 255);">
+                And another tiny 2
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

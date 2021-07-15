@@ -1,0 +1,44 @@
+// --------------- First here is the "Dockerfile" that didn't work when trying to set up Docker-Compose ---------
+
+# syntax=docker/dockerfile:1
+FROM python:3.7-alpine
+WORKDIR /var/fullstack
+ENV FLASK_APP=/backend/server.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt /var/fullstack
+COPY generate-certificate.sh /generate-certificate.sh
+RUN pip install --no-cache-dir -r requirements.txt
+RUN mkdir /root/certs && cd /root/certs
+EXPOSE 5000
+EXPOSE 9090
+COPY . /var/fullstack
+CMD [ "flask", "run" ]
+
+
+// ---------------- This was with the "docker-compose.yml" that looked like this: --------------
+
+version: "3.9"
+   
+services:
+  db:
+    image: mysql
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DB=mysql1
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=pass123
+      - MYSQL_ROOT_PASSWORD=pass123
+  web:
+    build: .
+    command: python /var/fullstack/server.py runserver 0.0.0.0:5000
+    volumes:
+      - ./backend/server.py:/var/fullstack/server.py
+      - ./frontend/:/var/fullstack/frontend/
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+// ------------ Error from this is shown as an image in the pdf file.  ----------
